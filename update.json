@@ -1,8 +1,8 @@
 {
   "name": "MogliVisuals Recode",
-  "version": "1.0.0",
-  "changelog": "Первый стабильный релиз: Fabric 1.21.11, Fabric API, визуалы Recode",
-  "url": "https://migodi2.github.io/MogliVisualsrecode/MogliVisualsrecode.zip",
-  "sha1": "fcc702422537c70634a16e216f420e846c655122",
-  "size": 1464608
+  "version": "1.1.0",
+  "changelog": "UI вшит в лаунчер — один файл, никаких zip. Обновление по прямой ссылке.",
+  "url": "https://migodi2.github.io/MogliVisualsrecode/MogliVisuals.exe",
+  "sha1": "0b1f57e64b22ebcd9cba8a2920f753af6416ff79",
+  "size": 1817600
 }
