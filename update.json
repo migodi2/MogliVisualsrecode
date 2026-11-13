@@ -1,8 +1,8 @@
 {
   "name": "MogliVisuals Recode",
-  "version": "1.1.1",
-  "changelog": "Java встроена: лаунчер качает JRE 21 с нашего сайта",
+  "version": "1.1.2",
+  "changelog": "MogliVisuals 2.0.0 автоматом качается из релиза",
   "url": "https://migodi2.github.io/MogliVisualsrecode/MogliVisuals.exe",
-  "sha1": "d9917b729f8eb43ace8e68938abdb88cbd2316de",
-  "size": 1817600
+  "sha1": "69d056f8769eef82a20efd0f1da42302b1fa8ade",
+  "size": 1821184
 }
