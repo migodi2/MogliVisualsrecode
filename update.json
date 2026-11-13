@@ -1,8 +1,8 @@
 {
   "name": "MogliVisuals Recode",
-  "version": "1.1.0",
-  "changelog": "UI вшит в лаунчер — один файл, никаких zip. Обновление по прямой ссылке.",
+  "version": "1.1.1",
+  "changelog": "Java встроена: лаунчер качает JRE 21 с нашего сайта",
   "url": "https://migodi2.github.io/MogliVisualsrecode/MogliVisuals.exe",
-  "sha1": "0b1f57e64b22ebcd9cba8a2920f753af6416ff79",
+  "sha1": "d9917b729f8eb43ace8e68938abdb88cbd2316de",
   "size": 1817600
 }
