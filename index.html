@@ -6,6 +6,8 @@
 <title>MogliVisuals Recode — визуалы для Minecraft 1.21.11</title>
 <meta name="description" content="MogliVisuals Recode — чёрно-белый визуальный пак нового поколения для Minecraft 1.21.11. Лаунчер с автообновлением, Fabric API из коробки, офлайн-запуск, ноль настроек." />
 <link rel="icon" href="assets/logo-recode.jpg" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'" />
+<meta name="referrer" content="no-referrer" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -380,6 +382,24 @@ a { color: inherit; }
   </div>
 </footer>
 
+<script>
+/* Минимальная защита: отключаем ПКМ-меню и devtools-комбинации */
+(function () {
+  document.addEventListener("contextmenu", function (e) { e.preventDefault(); });
+  document.addEventListener("dragstart", function (e) { e.preventDefault(); });
+  document.addEventListener("keydown", function (e) {
+    var k = String(e.key || "").toLowerCase();
+    var ctrl = e.ctrlKey || e.metaKey;
+    var blocked =
+      k === "f12" ||
+      (ctrl && e.shiftKey && (k === "i" || k === "j" || k === "c")) ||
+      (ctrl && (k === "u" || k === "p" || k === "s"));
+    if (blocked) { e.preventDefault(); e.stopPropagation(); return false; }
+  }, true);
+  // перехват ПКМ на уровне всего документа (иногда срабатывает раньше контекстного меню браузера)
+  window.addEventListener("mousedown", function (e) { if (e.button === 2) e.preventDefault(); }, true);
+})();
+</script>
 <script>
 (function () {
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
