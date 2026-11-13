@@ -1,305 +1,328 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=1280" />
 <title>MogliVisuals Recode — визуалы для Minecraft 1.21.11</title>
-<meta name="description" content="MogliVisuals Recode — чёрно-белые визуалы нового поколения для Minecraft 1.21.11. Лаунчер с автообновлением, Fabric API из коробки, офлайн-запуск, ноль настроек." />
+<meta name="description" content="MogliVisuals Recode — чёрно-белый визуальный пак нового поколения для Minecraft 1.21.11. Лаунчер с автообновлением, Fabric API из коробки, офлайн-запуск, ноль настроек." />
 <link rel="icon" href="assets/logo-recode.jpg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,600&family=Chakra+Petch:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
 :root {
-  --bg:        #05070D;
-  --panel:     #0B0F16;
-  --card:      #0F141D;
-  --card-2:    #141A25;
+  --bg:        #060607;
+  --panel:     #0E0E10;
+  --glass:     rgba(16,16,19,.58);
   --line:      rgba(255,255,255,.09);
   --line-2:    rgba(255,255,255,.16);
-  --line-3:    rgba(255,255,255,.26);
-  --text:      #E8ECF3;
-  --muted:     #8A93A3;
-  --faint:     #556072;
+  --line-3:    rgba(255,255,255,.30);
+  --text:      #F4F4F5;
+  --muted:     #A3A3A9;
+  --faint:     #63636B;
   --white:     #FFFFFF;
-  --font-display: 'Playfair Display', Georgia, serif;
-  --font-body: 'Chakra Petch', 'Segoe UI', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Consolas', monospace;
-  --tr: 240ms cubic-bezier(.4,0,.2,1);
+  --font-disp: 'Unbounded', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --tr: 220ms cubic-bezier(.4,0,.2,1);
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { background: var(--bg); color: var(--text); font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
-.container { width: 1160px; max-width: 94vw; margin: 0 auto; }
+body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 14px; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+::selection { background: var(--white); color: var(--bg); }
+img { max-width: 100%; }
+a { color: inherit; }
+.container { width: 1180px; max-width: 94vw; margin: 0 auto; }
+
+.chrome { background: linear-gradient(180deg, #FFFFFF 6%, #D6D6DA 52%, #A2A2AB 100%); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
+.chrome-dim { background: linear-gradient(180deg, rgba(255,255,255,.85) 6%, rgba(255,255,255,.45) 55%, rgba(255,255,255,.22) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
 
 /* ───────── NAV ───────── */
-.nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 40; height: 62px;
-  background: rgba(5,7,13,.78); backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--line);
-}
-.nav .container { height: 100%; display: flex; align-items: center; gap: 14px; }
-.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.nav-logo img { width: 30px; height: 30px; border-radius: 8px; border: 1px solid var(--line-2); }
-.nav-brand { font-size: 14px; font-weight: 700; color: #fff; letter-spacing: .02em; }
-.nav-brand span { color: var(--muted); font-weight: 400; font-size: 9px; letter-spacing: .34em; margin-left: 6px; }
-.nav-links { margin-left: auto; display: flex; align-items: center; gap: 26px; }
-.nav-links a { color: var(--muted); text-decoration: none; font-size: 12.5px; letter-spacing: .02em; transition: color var(--tr); }
-.nav-links a:hover { color: #fff; }
-.nav-cta {
-  padding: 9px 20px; border-radius: 999px; border: 1px solid var(--line-3);
-  color: #fff; text-decoration: none; font-size: 12px; font-weight: 600;
-  transition: all var(--tr);
-}
-.nav-cta:hover { background: #fff; color: #05070D; border-color: #fff; }
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 60; transition: background var(--tr), border-color var(--tr); border-bottom: 1px solid transparent; }
+.nav.scrolled { background: rgba(6,6,7,.82); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom-color: var(--line); }
+.nav .container { height: 64px; display: flex; align-items: center; gap: 16px; }
+.nav-brand { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+.nav-brand img { width: 34px; height: 34px; border-radius: 9px; border: 1px solid var(--line-2); box-shadow: 0 0 24px rgba(255,255,255,.1); }
+.nav-brand .nb-name { font-family: var(--font-disp); font-weight: 700; font-size: 13px; letter-spacing: .1em; color: var(--white); line-height: 1.1; }
+.nav-brand .nb-sub { font-family: var(--font-mono); font-size: 7px; letter-spacing: .42em; color: var(--muted); margin-top: 3px; text-transform: uppercase; }
+.nav-links { margin-left: auto; display: flex; align-items: center; gap: 28px; }
+.nav-links a { color: var(--muted); text-decoration: none; font-size: 12.5px; font-weight: 500; letter-spacing: .04em; transition: color var(--tr); position: relative; }
+.nav-links a:hover { color: var(--white); }
+.nav-links a::after { content: ""; position: absolute; left: 0; bottom: -6px; width: 0; height: 1px; background: var(--white); transition: width var(--tr); }
+.nav-links a:hover::after { width: 100%; }
+.nav-right { display: flex; align-items: center; gap: 10px; }
+.nav-social { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; color: var(--muted); border: 1px solid var(--line); background: rgba(255,255,255,.04); transition: all var(--tr); }
+.nav-social:hover { color: var(--white); border-color: var(--line-3); transform: translateY(-2px); }
+.nav-cta { padding: 10px 22px; border-radius: 999px; background: linear-gradient(180deg, #2C2C31 0%, #1B1B20 50%, #111116 100%); border: 1px solid rgba(255,255,255,.18); color: var(--white); text-decoration: none; font-size: 12px; font-weight: 600; letter-spacing: .06em; transition: all var(--tr); box-shadow: 0 8px 26px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.2); }
+.nav-cta:hover { transform: translateY(-1px); border-color: rgba(255,255,255,.36); box-shadow: 0 12px 34px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.3); }
 
 /* ───────── HERO ───────── */
-.hero {
-  position: relative; min-height: 100vh; display: flex; align-items: center; overflow: hidden; isolation: isolate;
-}
-.hero-bg {
-  position: absolute; inset: 0; z-index: -1;
-  background-image:
-    radial-gradient(1000px 560px at 50% 62%, rgba(255,255,255,.06), transparent 60%),
-    linear-gradient(180deg, rgba(5,7,13,.82) 0%, rgba(5,7,13,.35) 34%, rgba(5,7,13,.15) 55%, rgba(5,7,13,.94) 100%),
-    url("assets/manga-tear.png");
-  background-size: cover, cover, cover;
-  background-position: center, center, 50% 46%;
-  filter: brightness(.72) contrast(1.05);
-}
-.hero .container { padding: 140px 0 90px; }
-.hero-inner { max-width: 760px; }
-.eyebrow {
-  display: inline-flex; align-items: center; gap: 10px;
-  padding: 7px 14px; border: 1px solid var(--line-2); border-radius: 999px;
-  font-family: var(--font-mono); font-size: 10px; letter-spacing: .26em; color: #E8ECF3;
-  background: rgba(5,7,13,.55); backdrop-filter: blur(4px);
-}
-.eyebrow i { width: 7px; height: 7px; border-radius: 50%; background: #fff; box-shadow: 0 0 10px #fff; animation: blink 1.6s infinite; }
+.hero { position: relative; min-height: 100vh; display: flex; align-items: center; overflow: hidden; }
+.hero-bg { position: absolute; inset: 0; background: url("assets/forest-hq.png") 50% 42% / cover; filter: brightness(.62) contrast(1.15) grayscale(1); }
+.hero-scrim { position: absolute; inset: 0; background: radial-gradient(120% 95% at 50% 35%, transparent 30%, rgba(6,6,7,.62) 100%), linear-gradient(90deg, rgba(6,6,7,.85) 0%, rgba(6,6,7,.45) 40%, rgba(6,6,7,.15) 72%, rgba(6,6,7,.5) 100%), linear-gradient(0deg, var(--bg) 0%, transparent 26%); }
+.embers { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+.ember { position: absolute; bottom: -12px; border-radius: 50%; background: rgba(255,255,255,.85); box-shadow: 0 0 6px rgba(255,255,255,.7); animation: emberRise linear infinite; opacity: 0; }
+@keyframes emberRise { 0% { opacity: 0; transform: translate3d(0,0,0); } 12% { opacity: var(--o,.8); } 86% { opacity: var(--o,.8); } 100% { opacity: 0; transform: translate3d(var(--drift,40px), -108vh, 0); } }
+.hero .container { position: relative; z-index: 3; padding: 160px 0 110px; }
+.hero-inner { max-width: 800px; }
+.eyebrow { display: inline-flex; align-items: center; gap: 11px; padding: 8px 16px; border: 1px solid var(--line-2); border-radius: 999px; font-family: var(--font-mono); font-size: 9px; letter-spacing: .34em; color: var(--text); background: var(--glass); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+.eyebrow i { width: 7px; height: 7px; border-radius: 50%; background: var(--white); box-shadow: 0 0 10px rgba(255,255,255,.8); animation: blink 1.8s infinite; }
 @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: .25; } }
-.hero h1 {
-  font-family: var(--font-display); font-weight: 900; font-size: 96px; line-height: .92;
-  letter-spacing: -0.02em; margin-top: 26px; color: #fff;
-  text-shadow: 0 0 80px rgba(255,255,255,.14);
-}
-.hero h1 .italic {
-  display: block; font-style: italic; font-weight: 600;
-  color: transparent; -webkit-text-stroke: 2px #F2F2F2;
-}
-.hero p {
-  margin-top: 24px; font-size: 17px; font-weight: 300; color: #C9C9C9;
-  max-width: 520px; line-height: 1.6;
-}
-.hero p b { color: #fff; font-weight: 600; }
-.hero-ctas { display: flex; gap: 14px; margin-top: 34px; align-items: center; flex-wrap: wrap; }
-.btn-main {
-  display: inline-flex; align-items: center; gap: 12px;
-  height: 56px; padding: 0 34px; border-radius: 999px;
-  background: #fff; color: #05070D; text-decoration: none;
-  font-size: 15px; font-weight: 700; letter-spacing: .01em;
-  box-shadow: 0 14px 44px rgba(255,255,255,.18), inset 0 -3px 0 rgba(0,0,0,.15);
-  transition: transform var(--tr), box-shadow var(--tr);
-}
-.btn-main:hover { transform: translateY(-2px); box-shadow: 0 18px 60px rgba(255,255,255,.26); }
-.btn-ghost {
-  display: inline-flex; align-items: center; gap: 10px;
-  height: 56px; padding: 0 26px; border-radius: 999px;
-  border: 1px solid var(--line-3); color: #fff; text-decoration: none;
-  font-size: 13px; font-weight: 600; transition: all var(--tr);
-}
-.btn-ghost:hover { background: rgba(255,255,255,.08); border-color: #fff; }
-.hero-meta { margin-top: 40px; display: flex; gap: 26px; flex-wrap: wrap; }
-.hero-meta div { font-family: var(--font-mono); font-size: 10px; letter-spacing: .18em; color: var(--muted); text-transform: uppercase; }
-.hero-meta b { display: block; color: #fff; font-size: 15px; letter-spacing: .04em; margin-top: 5px; font-family: var(--font-body); font-weight: 700; }
+.hero h1 { font-family: var(--font-disp); font-weight: 800; font-size: 108px; line-height: .92; letter-spacing: -0.015em; margin-top: 28px; text-transform: uppercase; }
+.hero h1 .chrome { text-shadow: none; }
+.hero h1 .chrome-dim { display: block; }
+.hero-sub { margin-top: 26px; font-size: 16.5px; font-weight: 400; color: #D2D2D5; max-width: 560px; line-height: 1.65; }
+.hero-sub b { color: var(--white); font-weight: 600; }
+.hero-ctas { display: flex; gap: 14px; margin-top: 38px; align-items: center; flex-wrap: wrap; }
+.btn-main { display: inline-flex; align-items: center; gap: 12px; height: 56px; padding: 0 32px; border-radius: 999px; background: linear-gradient(180deg, #2C2C31 0%, #1B1B20 50%, #111116 100%); border: 1px solid rgba(255,255,255,.2); color: var(--white); text-decoration: none; font-size: 14px; font-weight: 600; letter-spacing: .04em; transition: all var(--tr); box-shadow: 0 0 0 3px rgba(255,255,255,.05), inset 0 1px 0 rgba(255,255,255,.24), 0 14px 34px rgba(0,0,0,.5), 0 0 46px rgba(255,255,255,.13); }
+.btn-main:hover { transform: translateY(-2px); border-color: rgba(255,255,255,.38); box-shadow: 0 0 0 3px rgba(255,255,255,.08), inset 0 1px 0 rgba(255,255,255,.32), 0 18px 46px rgba(0,0,0,.55), 0 0 76px rgba(255,255,255,.2); }
+.btn-ghost { display: inline-flex; align-items: center; gap: 10px; height: 56px; padding: 0 26px; border-radius: 999px; border: 1px solid var(--line-3); color: var(--white); text-decoration: none; font-size: 13px; font-weight: 600; letter-spacing: .02em; background: rgba(255,255,255,.04); transition: all var(--tr); }
+.btn-ghost:hover { background: rgba(255,255,255,.1); border-color: var(--white); }
+.hero-meta { margin-top: 46px; display: flex; gap: 0; flex-wrap: wrap; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: rgba(6,6,7,.5); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.hero-meta div { flex: 1 1 200px; padding: 14px 20px; border-right: 1px solid var(--line); }
+.hero-meta div:last-child { border-right: none; }
+.hero-meta span { display: block; font-family: var(--font-mono); font-size: 8px; letter-spacing: .3em; color: var(--faint); text-transform: uppercase; }
+.hero-meta b { display: block; margin-top: 5px; font-size: 13.5px; font-weight: 600; color: var(--white); letter-spacing: .02em; }
+.scroll-hint { position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%); z-index: 3; font-family: var(--font-mono); font-size: 8px; letter-spacing: .4em; color: var(--faint); text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.scroll-hint::after { content: ""; width: 1px; height: 34px; background: linear-gradient(180deg, var(--white), transparent); animation: hintPulse 1.8s ease-in-out infinite; }
+@keyframes hintPulse { 0%,100% { opacity: .3; } 50% { opacity: 1; } }
+
+/* entrance */
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s cubic-bezier(.2,.9,.3,1), transform .7s cubic-bezier(.2,.9,.3,1); }
+.reveal.in { opacity: 1; transform: none; }
+.hero .reveal.in { transition-delay: var(--d, 0s); }
 
 /* ───────── SECTIONS ───────── */
-.section { padding: 96px 0; border-top: 1px solid var(--line); background: var(--bg); position: relative; }
-.sec-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; margin-bottom: 44px; }
-.sec-title { font-family: var(--font-display); font-weight: 900; font-size: 46px; line-height: 1; color: #fff; }
-.sec-title span { font-style: italic; color: transparent; -webkit-text-stroke: 1.3px #E8ECF3; }
-.sec-sub { color: var(--muted); font-size: 13px; max-width: 420px; line-height: 1.6; font-weight: 300; }
+.section { padding: 100px 0; border-top: 1px solid var(--line); position: relative; background: var(--bg); }
+.section.alt { background: #08080A; }
+.sec-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; margin-bottom: 48px; }
+.sec-kicker { font-family: var(--font-mono); font-size: 9px; letter-spacing: .44em; color: var(--muted); text-transform: uppercase; display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+.sec-kicker::before { content: ""; width: 34px; height: 1px; background: var(--line-3); }
+.sec-title { font-family: var(--font-disp); font-weight: 800; font-size: 46px; line-height: 1; color: var(--white); text-transform: uppercase; letter-spacing: .01em; }
+.sec-sub { color: var(--muted); font-size: 13px; max-width: 440px; line-height: 1.65; text-align: right; }
+
+/* version block */
+.version-wrap { display: grid; grid-template-columns: 1fr; gap: 22px; }
+.vs-card { position: relative; width: min(760px, 100%); height: 300px; margin: 0 auto; border-radius: 22px; border: 1px solid var(--line-2); overflow: hidden; text-align: left; cursor: pointer; display: block; background: #0A0A0C; transition: transform .3s cubic-bezier(.2,.9,.3,1), border-color .3s, box-shadow .3s; box-shadow: 0 30px 80px rgba(0,0,0,.55), 0 0 70px rgba(255,255,255,.05); }
+.vs-card:hover { transform: translateY(-6px); border-color: var(--line-3); box-shadow: 0 42px 110px rgba(0,0,0,.65), 0 0 110px rgba(255,255,255,.1); }
+.vs-card-art { position: absolute; inset: 0; background: url("assets/forest-hq.png") 50% 44% / cover; filter: brightness(.72) contrast(1.2) grayscale(1); transition: filter .4s; }
+.vs-card:hover .vs-card-art { filter: brightness(.86) contrast(1.18) grayscale(1); }
+.vs-card-art::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(6,6,7,.8) 0%, rgba(6,6,7,.42) 46%, transparent 78%), linear-gradient(0deg, rgba(6,6,7,.85) 0%, transparent 46%); }
+.vs-badge { position: absolute; top: 18px; left: 20px; z-index: 2; font-family: var(--font-mono); font-size: 8px; letter-spacing: .26em; text-transform: uppercase; color: var(--bg); background: var(--white); border-radius: 6px; padding: 5px 11px; }
+.vs-card-body { position: absolute; left: 22px; bottom: 46px; z-index: 2; display: flex; flex-direction: column; gap: 9px; }
+.vs-card-kicker { font-family: var(--font-mono); font-size: 8px; letter-spacing: .46em; color: rgba(255,255,255,.55); text-transform: uppercase; }
+.vs-name { font-family: var(--font-disp); font-weight: 800; font-size: 37px; line-height: 1; color: var(--white); text-shadow: 0 8px 44px rgba(0,0,0,.6); }
+.vs-card-sub { font-family: var(--font-mono); font-size: 10px; letter-spacing: .22em; color: rgba(255,255,255,.68); text-transform: uppercase; }
+.vs-arrow { position: absolute; right: 26px; top: 50%; transform: translateY(-50%); z-index: 2; width: 62px; height: 62px; border-radius: 50%; border: 1px solid rgba(255,255,255,.5); display: grid; place-items: center; color: var(--white); background: rgba(6,6,7,.3); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); transition: transform .3s cubic-bezier(.2,.9,.3,1), background .3s, color .3s; }
+.vs-card:hover .vs-arrow { transform: translateY(-50%) translateX(8px); background: var(--white); color: var(--bg); box-shadow: 0 0 38px rgba(255,255,255,.35); }
+.vs-card-foot { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; height: 34px; display: flex; align-items: center; padding: 0 22px; border-top: 1px solid rgba(255,255,255,.12); background: rgba(6,6,7,.42); font-family: var(--font-mono); font-size: 7.5px; letter-spacing: .3em; color: rgba(255,255,255,.62); text-transform: uppercase; }
+.vs-note { text-align: center; font-family: var(--font-mono); font-size: 8px; letter-spacing: .3em; color: var(--faint); text-transform: uppercase; }
 
 /* features */
 .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-.feature {
-  background: var(--card); border: 1px solid var(--line); border-radius: 16px;
-  padding: 22px; transition: border-color var(--tr), transform var(--tr);
-}
-.feature:hover { border-color: var(--line-3); transform: translateY(-3px); }
-.f-icon { width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid var(--line-2); border-radius: 12px; background: var(--card-2); color: #E8ECF3; margin-bottom: 14px; }
-.f-name { font-size: 16px; font-weight: 700; color: #fff; }
-.f-desc { margin-top: 8px; font-size: 12.5px; color: var(--muted); line-height: 1.55; font-weight: 300; }
+.feature { background: var(--glass); border: 1px solid var(--line); border-radius: 18px; padding: 22px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: border-color var(--tr), transform var(--tr), box-shadow var(--tr); }
+.feature:hover { border-color: var(--line-3); transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,.45); }
+.f-icon { width: 46px; height: 46px; display: grid; place-items: center; border: 1px solid var(--line-2); border-radius: 12px; background: rgba(255,255,255,.05); color: var(--white); margin-bottom: 14px; transition: background var(--tr); }
+.feature:hover .f-icon { background: rgba(255,255,255,.12); }
+.f-name { font-size: 15.5px; font-weight: 600; color: var(--white); letter-spacing: .01em; }
+.f-desc { margin-top: 8px; font-size: 12.5px; color: var(--muted); line-height: 1.6; }
 
-/* screenshots */
-.shots { display: grid; grid-template-columns: 1fr; gap: 12px; }
-.shot-frame { border: 1px solid var(--line-2); border-radius: 18px; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,.6); }
+/* screens */
+.shots { display: grid; grid-template-columns: 1fr; gap: 16px; }
+.shot-frame { border: 1px solid var(--line-2); border-radius: 20px; overflow: hidden; background: #08080A; box-shadow: 0 30px 80px rgba(0,0,0,.5); transition: transform var(--tr), box-shadow var(--tr); }
+.shot-frame:hover { transform: translateY(-4px); box-shadow: 0 40px 110px rgba(0,0,0,.6), 0 0 70px rgba(255,255,255,.06); }
 .shot-frame img { display: block; width: 100%; }
-.shot-cap { display: flex; justify-content: space-between; padding: 12px 16px; background: var(--panel); border-top: 1px solid var(--line); font-family: var(--font-mono); font-size: 9px; letter-spacing: .22em; color: var(--muted); text-transform: uppercase; }
+.shot-cap { display: flex; justify-content: space-between; align-items: center; padding: 13px 18px; background: var(--panel); border-top: 1px solid var(--line); font-family: var(--font-mono); font-size: 9px; letter-spacing: .26em; color: var(--muted); text-transform: uppercase; }
 
 /* download */
-.dl { display: grid; grid-template-columns: 1.05fr .95fr; gap: 40px; align-items: center; }
-.dl-box { background: var(--card); border: 1px solid var(--line-2); border-radius: 20px; padding: 34px; position: relative; overflow: hidden; }
-.dl-box::before { content: ""; position: absolute; top: -80px; right: -80px; width: 260px; height: 260px; background: radial-gradient(circle, rgba(255,255,255,.07), transparent 70%); }
-.dl-badge { font-family: var(--font-mono); font-size: 10px; letter-spacing: .3em; color: #fff; border: 1px solid var(--line-3); display: inline-flex; padding: 6px 12px; border-radius: 4px; text-transform: uppercase; }
-.dl-name { font-family: var(--font-display); font-weight: 900; font-size: 34px; margin-top: 16px; color: #fff; line-height: 1.05; }
-.dl-desc { margin-top: 10px; color: var(--muted); font-size: 13px; line-height: 1.6; font-weight: 300; }
-.dl-list { margin-top: 18px; display: flex; flex-direction: column; gap: 9px; font-size: 12px; color: #C9C9C9; }
+.dl { display: grid; grid-template-columns: 1.05fr .95fr; gap: 36px; align-items: stretch; }
+.dl-box { background: var(--glass); border: 1px solid var(--line-2); border-radius: 22px; padding: 36px; position: relative; overflow: hidden; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.dl-box::before { content: ""; position: absolute; top: -90px; right: -90px; width: 280px; height: 280px; background: radial-gradient(circle, rgba(255,255,255,.08), transparent 70%); pointer-events: none; }
+.dl-badge { font-family: var(--font-mono); font-size: 9px; letter-spacing: .3em; color: var(--bg); background: var(--white); display: inline-flex; padding: 6px 12px; border-radius: 5px; text-transform: uppercase; font-weight: 600; }
+.dl-name { font-family: var(--font-disp); font-weight: 800; font-size: 38px; line-height: 1.02; margin-top: 18px; color: var(--white); text-transform: uppercase; }
+.dl-desc { margin-top: 12px; color: var(--muted); font-size: 13px; line-height: 1.7; }
+.dl-list { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; font-size: 12.5px; color: #D2D2D5; }
 .dl-list li { list-style: none; display: flex; gap: 10px; align-items: baseline; }
-.dl-list b { color: #fff; font-weight: 600; }
-.dl-actions { display: flex; gap: 12px; margin-top: 22px; flex-wrap: wrap; }
-.mono-note { font-family: var(--font-mono); font-size: 9px; color: var(--faint); letter-spacing: .12em; margin-top: 14px; }
-.quick { background: var(--panel); border: 1px solid var(--line); border-radius: 20px; padding: 26px; }
-.quick h3 { font-size: 12px; letter-spacing: .28em; color: var(--muted); text-transform: uppercase; font-family: var(--font-mono); font-weight: 400; }
-.steps { margin-top: 16px; display: flex; flex-direction: column; gap: 0; }
-.step { display: flex; gap: 14px; padding: 13px 0; }
+.dl-list li::before { content: ""; width: 6px; height: 6px; background: var(--white); border-radius: 1px; flex-shrink: 0; transform: translateY(-1px); }
+.dl-list b { color: var(--white); font-weight: 600; }
+.dl-actions { display: flex; gap: 12px; margin-top: 26px; flex-wrap: wrap; }
+.mono-note { font-family: var(--font-mono); font-size: 8.5px; color: var(--faint); letter-spacing: .12em; margin-top: 16px; }
+.mono-note span { color: var(--muted); }
+.quick { background: var(--panel); border: 1px solid var(--line); border-radius: 22px; padding: 28px; }
+.quick h3 { font-size: 10px; letter-spacing: .34em; color: var(--muted); text-transform: uppercase; font-family: var(--font-mono); font-weight: 500; }
+.steps { margin-top: 16px; display: flex; flex-direction: column; }
+.step { display: flex; gap: 16px; padding: 15px 0; }
 .step + .step { border-top: 1px solid var(--line); }
-.step-n { font-family: var(--font-mono); font-size: 11px; color: var(--faint); min-width: 26px; padding-top: 2px; }
-.step-t { font-size: 13.5px; line-height: 1.5; color: #E8ECF3; }
-.step-t b { color: #fff; }
-.step-t code { font-family: var(--font-mono); font-size: 11px; background: var(--card-2); border: 1px solid var(--line); padding: 2px 7px; border-radius: 5px; color: #fff; }
+.step-n { font-family: var(--font-mono); font-size: 10px; color: var(--faint); min-width: 28px; padding-top: 3px; }
+.step-t { font-size: 13.5px; line-height: 1.6; color: #E8E8EA; }
+.step-t b { color: var(--white); font-weight: 600; }
+.step-t code { font-family: var(--font-mono); font-size: 11px; background: rgba(255,255,255,.06); border: 1px solid var(--line); padding: 2px 7px; border-radius: 5px; color: var(--white); }
 
-/* FAQ */
+/* faq */
 .faq { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-.faq-item { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; }
-.faq-q { font-size: 14px; font-weight: 700; color: #fff; }
-.faq-a { margin-top: 8px; font-size: 12px; color: var(--muted); line-height: 1.6; font-weight: 300; }
+.faq-item { background: var(--glass); border: 1px solid var(--line); border-radius: 16px; padding: 20px 22px; transition: border-color var(--tr); }
+.faq-item:hover { border-color: var(--line-2); }
+.faq-q { font-size: 14px; font-weight: 600; color: var(--white); }
+.faq-a { margin-top: 8px; font-size: 12.5px; color: var(--muted); line-height: 1.65; }
+.faq-a b { color: var(--white); }
 
 /* footer */
-.footer { border-top: 1px solid var(--line); background: #03050A; padding: 40px 0 30px; }
+.footer { border-top: 1px solid var(--line); background: #040405; padding: 44px 0 34px; }
 .footer .container { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
 .footer-brand { display: flex; align-items: center; gap: 10px; }
-.footer-brand img { width: 26px; height: 26px; border-radius: 6px; }
-.footer-brand span { font-size: 12px; color: var(--muted); }
-.footer a { color: var(--muted); text-decoration: none; font-size: 12px; transition: color var(--tr); }
-.footer a:hover { color: #fff; }
-.footer-copy { margin-left: auto; font-family: var(--font-mono); font-size: 9px; color: var(--faint); letter-spacing: .14em; text-transform: uppercase; }
+.footer-brand img { width: 28px; height: 28px; border-radius: 7px; border: 1px solid var(--line-2); }
+.footer-brand span { font-size: 12.5px; color: var(--muted); }
+.footer-social { display: flex; gap: 8px; margin-left: 4px; }
+.footer a.link { color: var(--muted); text-decoration: none; font-size: 12px; transition: color var(--tr); }
+.footer a.link:hover { color: var(--white); }
+.footer-copy { margin-left: auto; font-family: var(--font-mono); font-size: 8.5px; color: var(--faint); letter-spacing: .16em; text-transform: uppercase; }
 
 @media (max-width: 980px) {
-  .hero h1 { font-size: 64px; }
+  .hero h1 { font-size: 58px; }
   .features { grid-template-columns: 1fr; }
   .dl { grid-template-columns: 1fr; }
   .faq { grid-template-columns: 1fr; }
   .nav-links { display: none; }
+  .sec-head { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .sec-sub { text-align: left; }
 }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
 </style>
 </head>
 <body>
 
 <!-- ══════════ NAV ══════════ -->
-<nav class="nav">
+<nav class="nav" id="nav">
   <div class="container">
-    <a class="nav-logo" href="#">
+    <a class="nav-brand" href="#top">
       <img src="assets/logo-recode.jpg" alt="MogliVisuals Recode" />
-      <span class="nav-brand">MogliVisuals<span>RECODE</span></span>
+      <span>
+        <span class="nb-name">MOGLIVISUALS</span><br />
+        <span class="nb-sub">Recode</span>
+      </span>
     </a>
     <div class="nav-links">
+      <a href="#version">Версия</a>
       <a href="#features">Внутри</a>
-      <a href="#download">Скачать</a>
+      <a href="#screens">Экраны</a>
       <a href="#faq">FAQ</a>
     </div>
-    <a class="nav-cta" href="#download">Скачать лаунчер</a>
+    <div class="nav-right">
+      <a class="nav-social" href="https://t.me/MogliVisuals" target="_blank" rel="noopener" title="Telegram"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></a>
+      <a class="nav-social" href="https://discord.gg/tXGpwXuXz" target="_blank" rel="noopener" title="Discord"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028 14.09 14.09 0 001.226-1.994.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128c.126-.094.252-.192.372-.292a.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.061 0a.074.074 0 01.079.009 12.32 12.32 0 00.372.293.077.077 0 01-.006.128 12.07 12.07 0 01-1.872.892.077.077 0 00-.04.106 14.012 14.012 0 001.225 1.994.076.076 0 00.084.028 19.845 19.845 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.182 0-2.157-1.085-2.157-2.419 0-1.335.955-2.42 2.157-2.42 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.955 2.42-2.157 2.42zm7.975 0c-1.182 0-2.157-1.085-2.157-2.419 0-1.335.955-2.42 2.157-2.42 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.42-2.157 2.42z"/></svg></a>
+      <a class="nav-cta" href="#download">Скачать</a>
+    </div>
   </div>
 </nav>
 
 <!-- ══════════ HERO ══════════ -->
-<header class="hero">
+<header class="hero" id="top">
   <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-scrim" aria-hidden="true"></div>
+  <div class="embers" id="embers" aria-hidden="true"></div>
   <div class="container">
     <div class="hero-inner">
-      <span class="eyebrow"><i></i>MINECRAFT 1.21.11 · FABRIC</span>
-      <h1>MOGLI<span class="italic">VISUALS</span></h1>
-      <p><b>Чёрно-белый взгляд сквозь разрыв.</b> Визуалы нового поколения для Minecraft: кристальная графика, монохромная атмосфера и сборка, которая запускается в один клик.</p>
-      <div class="hero-ctas">
+      <span class="eyebrow reveal"><i></i>Minecraft 1.21.11 · Fabric · Recode Edition</span>
+      <h1>
+        <span class="chrome reveal" style="--d:.08s">Mogli</span>
+        <span class="chrome-dim reveal" style="--d:.18s">Visuals</span>
+      </h1>
+      <p class="hero-sub reveal" style="--d:.3s"><b>Чёрно-белый взгляд сквозь туман.</b> Визуалы нового поколения для Minecraft 1.21.11: кристальная графика, монохромная атмосфера и лаунчер, который всё собирает сам.</p>
+      <div class="hero-ctas reveal" style="--d:.42s">
         <a class="btn-main" href="#download">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><polyline points="7 10 12 15 17 10"/><path d="M4 20h16"/></svg>
           Скачать лаунчер
         </a>
-        <a class="btn-ghost" href="#download">
-          Что внутри
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="6 13 12 19 18 13"/></svg>
-        </a>
+        <a class="btn-ghost" href="#screens">Смотреть экраны</a>
       </div>
-      <div class="hero-meta">
-        <div>Сборка<b>1.21.11</b></div>
-        <div>Модлоадер<b>Fabric + Fabric API</b></div>
-        <div>Авторизация<b>Офлайн по нику</b></div>
-        <div>Обновления<b>Автоматом</b></div>
+      <div class="hero-meta reveal" style="--d:.54s">
+        <div><span>Сборка</span><b>Minecraft 1.21.11</b></div>
+        <div><span>Загрузчик</span><b>Fabric + Fabric API</b></div>
+        <div><span>Java</span><b>JRE 21 · ставится сама</b></div>
+        <div><span>Авторизация</span><b>Офлайн по нику</b></div>
       </div>
     </div>
   </div>
+  <div class="scroll-hint">Scroll</div>
 </header>
 
-<!-- ══════════ FEATURES ══════════ -->
-<section class="section" id="features">
+<!-- ══════════ VERSION ══════════ -->
+<section class="section" id="version">
   <div class="container">
-    <div class="sec-head">
-      <h2 class="sec-title">ВНУТРИ <span>RECODE</span></h2>
-      <p class="sec-sub">Всё, что нужно, чтобы начать играть за микросекунды. Игра, Fabric и мод — лаунчер делает сам.</p>
+    <div class="sec-head reveal">
+      <div>
+        <div class="sec-kicker">Recode Edition</div>
+        <h2 class="sec-title">Выберите <span class="chrome-dim">версию</span></h2>
+      </div>
+      <p class="sec-sub">У нас всегда одна актуальная сборка — та, что играет без сюрпризов. Она уже ждёт тебя в лаунчере.</p>
     </div>
-    <div class="features">
-      <div class="feature">
-        <div class="f-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><line x1="6" y1="10" x2="6" y2="14"/><line x1="10" y1="10" x2="10" y2="14"/></svg></div>
-        <div class="f-name">Java скачивается сама</div>
-        <div class="f-desc">Встроенная OpenJDK 21 от Adoptium устанавливается автоматически при первом запуске. Ничего настраивать не нужно.</div>
-      </div>
-      <div class="feature">
-        <div class="f-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 2l2.4 7.2 7.2 2.4-7.2 2.4L12 21.2l-2.4-7.2-7.2-2.4 7.2-2.4L12 2z"/></svg></div>
-        <div class="f-name">Fabric API из коробки</div>
-        <div class="f-desc">Последняя версия Fabric API для 1.21.11 скачивается автоматически при каждом деплое сборки.</div>
-      </div>
-      <div class="feature">
-        <div class="f-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg></div>
-        <div class="f-name">Автообновление</div>
-        <div class="f-desc">Лаунчер сам узнаёт о новой версии, скачивает и перезапускается. Обновляться руками не нужно никогда.</div>
-      </div>
-      <div class="feature">
-        <div class="f-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg></div>
-        <div class="f-name">Офлайн по нику</div>
-        <div class="f-desc">Никаких Microsoft-аккаунтов и лицензий. Указал ник — играешь. HWID привязан к машине для сохранений.</div>
-      </div>
-      <div class="feature">
-        <div class="f-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"/></svg></div>
-        <div class="f-name">Кристальный glint</div>
-        <div class="f-desc">Монохромный перелив зачарований, мраморное небо, туман и пепел — фирменные визуалы MogliVisuals.</div>
-      </div>
-      <div class="feature">
-        <div class="f-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 10"/></svg></div>
-        <div class="f-name">C++ лаунчер, 0 настроек</div>
-        <div class="f-desc">Нативный WebView2-лаунчер без Electron. Съедает минимум памяти и запускается мгновенно.</div>
-      </div>
+    <div class="version-wrap reveal">
+      <a class="vs-card" href="#download" title="Скачать лаунчер">
+        <span class="vs-card-art"></span>
+        <span class="vs-badge">Установлена</span>
+        <span class="vs-card-body">
+          <span class="vs-card-kicker">Release · Recode</span>
+          <span class="vs-name">Minecraft 1.21.11</span>
+          <span class="vs-card-sub">Release · билд 2.0.0</span>
+        </span>
+        <span class="vs-arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        <span class="vs-card-foot">Fabric · MogliVisuals 2.0.0 · JRE 21</span>
+      </a>
+      <div class="vs-note">Нажми на карточку — откроется скачивание</div>
     </div>
   </div>
 </section>
 
-<!-- ══════════ SCREENSHOTS ══════════ -->
-<section class="section" id="screenshots" style="padding-top: 0;">
+<!-- ══════════ FEATURES ══════════ -->
+<section class="section alt" id="features">
   <div class="container">
-    <div class="sec-head">
-      <h2 class="sec-title">ВЗГЛЯД <span>СКВОЗЬ РАЗРЫВ</span></h2>
-      <p class="sec-sub">Чёрное на чёрном, белое на чёрном. Монохром, который не мешает игре, а задаёт тон.</p>
+    <div class="sec-head reveal">
+      <div>
+        <div class="sec-kicker">Внутри</div>
+        <h2 class="sec-title">Ничего <span class="chrome-dim">лишнего</span></h2>
+      </div>
+      <p class="sec-sub">Всё, что нужно, чтобы начать играть за секунды. Игра, Fabric, Java и мод — лаунчер доставит и соберёт сам.</p>
+    </div>
+    <div class="features">
+      <div class="feature reveal"><div class="f-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M3 9h18M9 14h4"/></svg></div><div class="f-name">Java 21 сама</div><div class="f-desc">Встроенный JRE 21 скачивается с нашего сайта при первом запуске. Настраивать ничего не надо.</div></div>
+      <div class="feature reveal"><div class="f-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.2 7.2 2.4-7.2 2.4L12 21.2l-2.4-7.2-7.2-2.4 7.2-2.4L12 2z"/></svg></div><div class="f-name">Fabric API из коробки</div><div class="f-desc">Актуальный Fabric Loader и Fabric API под 1.21.11 подтягиваются автоматически при деплое.</div></div>
+      <div class="feature reveal"><div class="f-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><polyline points="21 3 21 9 15 9"/></svg></div><div class="f-name">Автообновление</div><div class="f-desc">Лаунчер сам проверяет релизы, качает и перезапускается. Обновляться руками — никогда.</div></div>
+      <div class="feature reveal"><div class="f-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg></div><div class="f-name">Офлайн по нику</div><div class="f-desc">Без аккаунтов и лицензий. Ник — и играешь. Привязка к машине по HWID для сохранений.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SCREENS ══════════ -->
+<section class="section" id="screens">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div>
+        <div class="sec-kicker">Экраны</div>
+        <h2 class="sec-title">Взгляд <span class="chrome-dim">сквозь туман</span></h2>
+      </div>
+      <p class="sec-sub">Интро, выбор версии и главный экран — в чёрно-белой гамме, с лесом за стеклом.</p>
     </div>
     <div class="shots">
-      <div class="shot-frame">
-        <img src="assets/screens/app-main.png" alt="MogliVisuals Recode Launcher — главный экран" loading="lazy" />
-        <div class="shot-cap"><span>Главный экран</span><span>Recode Launcher 1.0</span></div>
-      </div>
+      <div class="shot-frame reveal"><img src="assets/screens/app-select.png" alt="Экран выбора версии" loading="lazy" /><div class="shot-cap"><span>Выбор версии</span><span>Recode Launcher</span></div></div>
+      <div class="shot-frame reveal"><img src="assets/screens/app-main.png" alt="Главный экран лаунчера" loading="lazy" /><div class="shot-cap"><span>Главный экран</span><span>Recode Launcher</span></div></div>
+      <div class="shot-frame reveal"><img src="assets/screens/app-intro.png" alt="Интро при запуске" loading="lazy" /><div class="shot-cap"><span>Интро</span><span>Recode Launcher</span></div></div>
     </div>
   </div>
 </section>
 
 <!-- ══════════ DOWNLOAD ══════════ -->
-<section class="section" id="download">
+<section class="section alt" id="download">
   <div class="container">
     <div class="dl">
-      <div class="dl-box">
-        <span class="dl-badge">STABLE · 1.1.2</span>
-        <h3 class="dl-name">MogliVisuals<br>Recode Launcher</h3>
-        <p class="dl-desc">Полная сборка: лаунчер, Fabric Loader, Fabric API и мод MogliVisuals-2.0.0. Один файл — всё внутри. Java и мод скачиваются сами на первом запуске.</p>
+      <div class="dl-box reveal">
+        <span class="dl-badge">Stable · 1.1.3</span>
+        <h3 class="dl-name">MogliVisuals<br /><span class="chrome-dim">Recode</span></h3>
+        <p class="dl-desc">Один файл — всё внутри. Лаунчер, выбор версии, Fabric, Fabric API и мод MogliVisuals 2.0.0. Java и игра скачиваются сами при первом запуске.</p>
         <ul class="dl-list">
           <li><b>Игра:</b> Minecraft 1.21.11 + Fabric</li>
           <li><b>Java:</b> JRE 21 с нашего сайта (автоскачивание)</li>
-          <li><b>Мод:</b> MogliVisuals 2.0.0 из GitHub Releases (автоскачивание)</li>
-          <li><b>Формат:</b> один <b>MogliVisuals.exe</b> — UI вшит в него</li>
+          <li><b>Мод:</b> MogliVisuals 2.0.0 из релизов (автоскачивание)</li>
+          <li><b>Формат:</b> один <b>MogliVisuals.exe</b></li>
         </ul>
         <div class="dl-actions">
           <a class="btn-main" href="MogliVisuals.exe" download="MogliVisuals.exe">
@@ -307,23 +330,14 @@ body { background: var(--bg); color: var(--text); font-family: var(--font-body);
             Скачать лаунчер
           </a>
         </div>
-        <div class="mono-note">SHA1: <span id="sha1sum">69d056f8769eef82a20efd0f1da42302b1fa8ade</span> · Файл проверяется при каждом обновлении</div>
+        <div class="mono-note">SHA1: <span>2f14b05f91a566e2717087433b23b20714f2d420</span> · проверяется при каждом обновлении</div>
       </div>
-      <div class="quick">
-        <h3>Установка за 3 шага</h3>
+      <div class="quick reveal">
+        <h3>Три шага до игры</h3>
         <div class="steps">
-          <div class="step">
-            <div class="step-n">01</div>
-            <div class="step-t">Скачайте <b>MogliVisuals.exe</b> в любую папку. UI, иконка и все ресурсы вшиты в один файл.</div>
-          </div>
-          <div class="step">
-            <div class="step-n">02</div>
-            <div class="step-t">Запустите <code>MogliVisuals.exe</code>. При первом старте лаунчер сам скачает игру, Java и Fabric API (~600 МБ, один раз).</div>
-          </div>
-          <div class="step">
-            <div class="step-n">03</div>
-            <div class="step-t">Укажите ник и нажмите <b>«Продолжить»</b>. Minecraft запустится с визуалами.</div>
-          </div>
+          <div class="step"><div class="step-n">01</div><div class="step-t">Скачайте <b>MogliVisuals.exe</b> в любую папку — UI, иконка и ресурсы вшиты в один файл.</div></div>
+          <div class="step"><div class="step-n">02</div><div class="step-t">Запустите — при первом старте лаунчер сам скачает игру, Java и Fabric API (~600 МБ, один раз).</div></div>
+          <div class="step"><div class="step-n">03</div><div class="step-t">Укажите ник и выберите версию. Minecraft запустится с визуалами.</div></div>
         </div>
       </div>
     </div>
@@ -331,36 +345,21 @@ body { background: var(--bg); color: var(--text); font-family: var(--font-body);
 </section>
 
 <!-- ══════════ FAQ ══════════ -->
-<section class="section" id="faq" style="padding-top: 0;">
+<section class="section" id="faq">
   <div class="container">
-    <div class="sec-head">
-      <h2 class="sec-title">ЧАСТЫЕ <span>ВОПРОСЫ</span></h2>
+    <div class="sec-head reveal">
+      <div>
+        <div class="sec-kicker">FAQ</div>
+        <h2 class="sec-title">Частые <span class="chrome-dim">вопросы</span></h2>
+      </div>
     </div>
     <div class="faq">
-      <div class="faq-item">
-        <div class="faq-q">Это бесплатно?</div>
-        <div class="faq-a">Да, полностью и навсегда. Никаких подписок, доната и платных версий.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Нужен ли Microsoft-аккаунт?</div>
-        <div class="faq-a">Нет. Авторизация офлайн по нику, как в старых пиратках.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Где лежат файлы игры?</div>
-        <div class="faq-a">В <b>C:\MogliVisuals</b>. Моды — в <b>C:\MogliVisuals\mods</b>, миры — в <b>saves</b>.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Как обновиться?</div>
-        <div class="faq-a">Никак — лаунчер сам проверяет обновления при запуске, скачивает и перезапускается.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Свой мод работает?</div>
-        <div class="faq-a">Кладите .jar мода в любую папку и укажите её в настройках лаунчера — он скопирует в <b>mods/</b> при следующем запуске.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Сколько места нужно?</div>
-        <div class="faq-a">Около <b>700 МБ</b> на полную установку (игра + ресурсы + визуалы).</div>
-      </div>
+      <div class="faq-item reveal"><div class="faq-q">Это бесплатно?</div><div class="faq-a">Да, полностью и навсегда. Никаких подписок и доната.</div></div>
+      <div class="faq-item reveal"><div class="faq-q">Нужен ли Microsoft-аккаунт?</div><div class="faq-a">Нет. Авторизация офлайн по нику — указал ник и играешь.</div></div>
+      <div class="faq-item reveal"><div class="faq-q">Где лежат файлы игры?</div><div class="faq-a">В <b>C:\MogliVisuals</b>. Моды — в <b>C:\MogliVisuals\mods</b>, миры — в <b>saves</b>.</div></div>
+      <div class="faq-item reveal"><div class="faq-q">Как обновляться?</div><div class="faq-a">Никак — лаунчер сам проверяет релизы, качает и перезапускается.</div></div>
+      <div class="faq-item reveal"><div class="faq-q">Пойдёт ли мой мод?</div><div class="faq-a">Любой Fabric-мод под 1.21.11 — положите его <b>.jar</b> в <b>mods/</b>, и он загрузится.</div></div>
+      <div class="faq-item reveal"><div class="faq-q">Сколько места нужно?</div><div class="faq-a">Около <b>700 МБ</b> на полную установку (игра + ресурсы + визуалы).</div></div>
     </div>
   </div>
 </section>
@@ -372,15 +371,53 @@ body { background: var(--bg); color: var(--text); font-family: var(--font-body);
       <img src="assets/logo-recode.jpg" alt="MogliVisuals Recode" />
       <span>MogliVisuals Recode</span>
     </div>
-    <a href="#download">Скачать</a>
-    <a href="#faq">FAQ</a>
-    <a href="#features">Внутри</a>
-    <div class="footer-copy">© 2026 migodi · Recode</div>
+    <a class="nav-social" href="https://t.me/MogliVisuals" target="_blank" rel="noopener" title="Telegram"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></a>
+    <a class="nav-social" href="https://discord.gg/tXGpwXuXz" target="_blank" rel="noopener" title="Discord"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028 14.09 14.09 0 001.226-1.994.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128c.126-.094.252-.192.372-.292a.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.061 0a.074.074 0 01.079.009 12.32 12.32 0 00.372.293.077.077 0 01-.006.128 12.07 12.07 0 01-1.872.892.077.077 0 00-.04.106 14.012 14.012 0 001.225 1.994.076.076 0 00.084.028 19.845 19.845 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.182 0-2.157-1.085-2.157-2.419 0-1.335.955-2.42 2.157-2.42 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.955 2.42-2.157 2.42zm7.975 0c-1.182 0-2.157-1.085-2.157-2.419 0-1.335.955-2.42 2.157-2.42 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.42-2.157 2.42z"/></svg></a>
+    <a class="link" href="#download">Скачать</a>
+    <a class="link" href="#features">Внутри</a>
+    <a class="link" href="#faq">FAQ</a>
+    <div class="footer-copy">© 2026 migodi · Recode Edition</div>
   </div>
 </footer>
 
 <script>
-// SHA1 проставлен при сборке релиза 1.0.0
+(function () {
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // embers
+  var box = document.getElementById("embers");
+  if (box && !reduce) {
+    for (var i = 0; i < 24; i++) {
+      var e = document.createElement("span");
+      var s = (1.5 + Math.random() * 3.2).toFixed(1);
+      e.className = "ember";
+      e.style.left = (Math.random() * 100).toFixed(1) + "%";
+      e.style.width = s + "px";
+      e.style.height = s + "px";
+      e.style.setProperty("--o", (0.3 + Math.random() * 0.55).toFixed(2));
+      e.style.setProperty("--drift", ((Math.random() - 0.5) * 200).toFixed(0) + "px");
+      e.style.animationDuration = (9 + Math.random() * 9).toFixed(2) + "s";
+      e.style.animationDelay = (Math.random() * 9).toFixed(2) + "s";
+      box.appendChild(e);
+    }
+  }
+
+  // hero entrance
+  var heroEls = document.querySelectorAll(".hero .reveal");
+  heroEls.forEach(function (el) { el.classList.add("in"); });
+
+  // reveal on scroll
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll(".reveal:not(.hero .reveal)").forEach(function (el) { io.observe(el); });
+
+  // nav background
+  var nav = document.getElementById("nav");
+  function onScroll() { nav.classList.toggle("scrolled", window.scrollY > 24); }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+})();
 </script>
 </body>
 </html>
