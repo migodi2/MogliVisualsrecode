@@ -189,6 +189,43 @@ a { color: inherit; }
   .sec-sub { text-align: left; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+
+/* ═══════════ MOTION PASS 2 ═══════════ */
+.hero h1 { position: relative; }
+.hero h1 .chrome { display: block; animation: titleReveal .95s cubic-bezier(.16,1,.3,1) .12s both; clip-path: inset(0 0 108% 0); }
+.hero h1 .chrome-dim { display: block; animation: titleReveal .95s cubic-bezier(.16,1,.3,1) .24s both; clip-path: inset(0 0 108% 0); }
+@keyframes titleReveal { from { clip-path: inset(0 0 108% 0); transform: translateY(18px); } to { clip-path: inset(0 0 -28% 0); transform: none; } }
+.hero h1::after { content: ""; position: absolute; top: -12%; bottom: -12%; width: 130px; background: linear-gradient(100deg, transparent, rgba(255,255,255,.5), transparent); transform: translateX(-280%) skewX(-16deg); animation: titleShine 5.5s ease-in-out 1.8s infinite; pointer-events: none; mix-blend-mode: overlay; }
+@keyframes titleShine { 0%,70% { transform: translateX(-280%) skewX(-16deg); } 90%,100% { transform: translateX(440%) skewX(-16deg); } }
+
+.nav-cta { position: relative; overflow: hidden; }
+.nav-cta::after { content: ""; position: absolute; top: -40%; bottom: -40%; width: 60px; background: linear-gradient(100deg, transparent, rgba(255,255,255,.4), transparent); transform: translateX(-220%) skewX(-16deg); animation: ctaShine 4.6s ease-in-out infinite; pointer-events: none; }
+@keyframes ctaShine { 0%,72% { transform: translateX(-220%) skewX(-16deg); } 90%,100% { transform: translateX(340%) skewX(-16deg); } }
+
+.f-icon svg { transition: transform .45s cubic-bezier(.2,.9,.3,1); }
+.feature:hover .f-icon svg { transform: rotate(-9deg) scale(1.12); }
+.f-icon { transition: transform .45s cubic-bezier(.2,.9,.3,1), background var(--tr); }
+.feature:hover .f-icon { transform: translateY(-2px) rotate(-3deg); }
+
+.features .feature:nth-child(1).reveal { transition-delay: .02s; }
+.features .feature:nth-child(2).reveal { transition-delay: .07s; }
+.features .feature:nth-child(3).reveal { transition-delay: .12s; }
+.features .feature:nth-child(4).reveal { transition-delay: .17s; }
+.features .feature:nth-child(5).reveal { transition-delay: .22s; }
+.features .feature:nth-child(6).reveal { transition-delay: .27s; }
+.faq .faq-item:nth-child(2n).reveal { transition-delay: .08s; }
+.faq .faq-item:nth-child(2n+1).reveal { transition-delay: .14s; }
+.shots .shot-frame:nth-child(2).reveal { transition-delay: .06s; }
+.shots .shot-frame:nth-child(3).reveal { transition-delay: .12s; }
+
+.vs-card-art { transition: filter .4s, transform .7s cubic-bezier(.2,.9,.3,1); }
+.vs-card:hover .vs-card-art { transform: scale(1.05); }
+.vs-name { transition: transform .35s cubic-bezier(.2,.9,.3,1), text-shadow .35s; }
+.vs-card:hover .vs-name { transform: translateX(5px); text-shadow: 0 8px 54px rgba(255,255,255,.28); }
+.btn-main svg { transition: transform .3s cubic-bezier(.2,.9,.3,1); }
+.btn-main:hover svg { transform: translateY(2px); }
+.nav-social svg { transition: transform .3s cubic-bezier(.2,1.3,.4,1); }
+.nav-social:hover svg { transform: translateY(-2px) scale(1.14); }
 </style>
 </head>
 <body>
@@ -317,7 +354,7 @@ a { color: inherit; }
   <div class="container">
     <div class="dl">
       <div class="dl-box reveal">
-        <span class="dl-badge">Stable · 1.1.6</span>
+        <span class="dl-badge">Stable · 1.1.7</span>
         <h3 class="dl-name">MogliVisuals<br /><span class="chrome-dim">Recode</span></h3>
         <p class="dl-desc">Один файл — всё внутри. Лаунчер, выбор версии, Fabric, Fabric API и мод MogliVisuals 2.0.0. Java и игра скачиваются сами при первом запуске.</p>
         <ul class="dl-list">
@@ -332,7 +369,7 @@ a { color: inherit; }
             Скачать лаунчер
           </a>
         </div>
-        <div class="mono-note">SHA1: <span>6e32915c9088de8492945ae341ae41fe63b1f382</span> · проверяется при каждом обновлении</div>
+        <div class="mono-note">SHA1: <span>9e04b418ccdbac0c01337994f0ce972ed0ac66ae</span> · проверяется при каждом обновлении</div>
       </div>
       <div class="quick reveal">
         <h3>Три шага до игры</h3>
